@@ -1,18 +1,18 @@
 #!/bin/sh
 
-host_home='/Users/pnlybubbles'
-
 start () {
   echo 'starting container: '$1
   local opt=$2
   if [ ! -z $port ]; then
     opt=$opt' -p '$port
   fi
+  local name=`echo $PWD | sed -e s#/#-#g | sed -e s/^-//`
   docker run \
-    -v $host_home$PWD:/main \
+    -v $host_pwd:/main \
     $opt \
     --name $name \
     --label cab.replica \
+    --label cab.path="$host_pwd" \
     --rm \
     -itd \
     $1 \
@@ -22,15 +22,24 @@ start () {
 execute () {
   docker exec \
     -it \
-    $name \
+    $current_id \
     sh -c "cd /main && $*"
 }
 
-stop () {
-  docker stop $name
+status() {
+  replica_ids=`docker ps -q -f 'label=cab.replica'`
+  docker inspect \
+    --format '{{.Config.Hostname}} {{.State.Status}} {{.Config.Image}} {{index .Config.Labels "cab.path"}}' \
+    $replica_ids
 }
 
-name=`echo $PWD | sed -e s#/#-#g | sed -e s/^-//`
+stop () {
+  docker stop $current_id
+}
+
+host_home='/Users/pnlybubbles'
+host_pwd=$host_home$PWD
+current_id=`docker ps -q -f 'label=cab.path=/Users/pnlybubbles/cab/node/grimoire.gl'`
 
 if [ -z $1 ]; then
   echo -e 'Usage: d [OPTIONS] [COMMAND]'
@@ -38,6 +47,7 @@ if [ -z $1 ]; then
   echo -e 'Options:'
   echo -e '\t-i, --image [IMAGE]'
   echo -e '\t-p, --port [GUEST]'
+  echo -e '\t-s, --status'
   echo -e '\t    --stop'
   return 0
 fi
@@ -57,13 +67,17 @@ do
       stop
       return 0
       ;;
+    '-s' | '--status' )
+      status
+      return 0
+      ;;
     * )
       break
       ;;
   esac
 done
 
-if docker inspect $name >/dev/null 2>&1; then
+if [ ! -z $current_id ]]; then
   execute $*
 else
   if [ ! -z $image ]; then
