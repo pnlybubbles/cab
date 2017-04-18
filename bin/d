@@ -4,6 +4,17 @@ start () {
   echo 'starting container: '$1
   local opt=$2
   if [ ! -z $port ]; then
+    if [ -z `echo $port | grep ':'` ]; then
+      local used_ports=`docker inspect \
+        --format '{{range .NetworkSettings.Ports}}{{index (index . 0) "HostPort"}}{{end}}' \
+        $replica_ids`
+      local host_port='4000'
+      while [ ! -z `echo $used_ports | grep $host_port` ]
+      do
+        host_port=`expr $host_port + 1`
+      done
+      port=$host_port':'$port
+    fi
     opt=$opt' -p '$port
   fi
   local name=`echo $PWD | sed -e s#/#-#g | sed -e s/^-//`
@@ -28,10 +39,9 @@ execute () {
 }
 
 status() {
-  replica_ids=`docker ps -q -f 'label=cab.replica'`
-  if [ ! -z $replica_ids ]; then
+  if [ ! -z "$replica_ids" ]; then
     docker inspect \
-      --format '{{.Config.Hostname}} {{.State.Status}} {{.Config.Image}} {{index .Config.Labels "cab.path"}}' \
+      --format '{{.Config.Hostname}} {{.State.Status}} {{.Config.Image}} {{range $i, $_ := .NetworkSettings.Ports}}{{index (index . 0) "HostPort"}}:{{$i}} {{end}} {{index .Config.Labels "cab.path"}}' \
       $replica_ids
   fi
 }
@@ -47,6 +57,7 @@ update_current () {
 host_home='/Users/pnlybubbles'
 host_pwd=$host_home$PWD
 current_id=''
+replica_ids=`docker ps -q -f 'label=cab.replica' | tr '\n' ' '`
 update_current
 
 if [ -z $1 ]; then
