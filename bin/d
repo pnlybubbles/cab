@@ -12,7 +12,7 @@ start () {
     $opt \
     --name $name \
     --label cab.replica \
-    --label cab.path="$host_pwd" \
+    --label cab.path="$PWD" \
     --rm \
     -itd \
     $1 \
@@ -41,7 +41,7 @@ stop () {
 }
 
 update_current () {
-  current_id=`docker ps -q -f 'label=cab.path=/Users/pnlybubbles/cab/node/grimoire.gl'`
+  current_id=`docker ps -q -f "label=cab.path=$PWD"`
 }
 
 host_home='/Users/pnlybubbles'
