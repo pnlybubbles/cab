@@ -14,11 +14,11 @@ case $1 in
     ;;
   'stop' )
     primary=`docker ps -qf 'label=cab.primary'`
-    if [ ! -z $primary ]; then
+    if [ ! -z "$primary" ]; then
       docker stop $primary
     fi
     replica=`docker ps -qf 'label=cab.replica'`
-    if [ ! -z $primary ]; then
+    if [ ! -z "$primary" ]; then
       docker stop $replica
     fi
     ;;
@@ -29,6 +29,9 @@ case $1 in
       sh -c 'cd /cab && sh'
     ;;
   'build' )
+    if [ ! -z `docker images --format '{{.Repository}}' | grep cab` ]; then
+      docker rmi cab
+    fi
     docker build \
       -t cab \
       /Users/pnlybubbles/cab
