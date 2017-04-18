@@ -1,0 +1,34 @@
+#!/bin/sh
+
+case $1 in
+  '' | 'start' )
+    docker run \
+      -v /Users/pnlybubbles/cab:/cab \
+      -v /var/run/docker.sock:/var/run/docker.sock \
+      --name cab \
+      --label cab.primary \
+      --rm \
+      -itd \
+      cab \
+      sh
+    ;;
+  'stop' )
+    docker stop `docker ps -qf 'label=cab.primary'`
+    docker stop `docker ps -qf 'label=cab.replica'`
+    ;;
+  'sh' )
+    docker exec \
+      -it \
+      cab \
+      sh -c 'cd /cab && sh'
+    ;;
+  'build' )
+    docker build \
+      -t cab \
+      /Users/pnlybubbles/cab
+    ;;
+  * )
+    echo 'ERROR: Unknown arguments'
+    return 1
+    ;;
+esac

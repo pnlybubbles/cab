@@ -1,0 +1,85 @@
+#!/bin/sh
+
+host_home='/Users/pnlybubbles'
+
+start () {
+  echo 'starting container: '$1
+  local opt=$2
+  if [ ! -z $port ]; then
+    opt=$opt' -p '$port
+  fi
+  docker run \
+    -v $host_home$PWD:/main \
+    $opt \
+    --name $name \
+    --label cab.replica \
+    --rm \
+    -itd \
+    $1 \
+    sh
+}
+
+execute () {
+  docker exec \
+    -it \
+    $name \
+    sh -c "cd /main && $*"
+}
+
+stop () {
+  docker stop $name
+}
+
+name=`echo $PWD | sed -e s#/#-#g | sed -e s/^-//`
+
+if [ -z $1 ]; then
+  echo -e 'Usage: d [OPTIONS] [COMMAND]'
+  echo -e
+  echo -e 'Options:'
+  echo -e '\t-i, --image [IMAGE]'
+  echo -e '\t-p, --port [GUEST]'
+  echo -e '\t    --stop'
+  return 0
+fi
+
+image=''
+port=''
+while :
+do
+  case $1 in
+    '-i' | '--image' )
+      shift; image=$1; shift
+      ;;
+    '-p' | '--port' )
+      shift; port=$1; shift
+      ;;
+    '--stop')
+      stop
+      return 0
+      ;;
+    * )
+      break
+      ;;
+  esac
+done
+
+if docker inspect $name >/dev/null 2>&1; then
+  execute $*
+else
+  if [ ! -z $image ]; then
+    start $image
+  else
+    case $1 in
+      'node' | 'npm' | 'yarn' )
+        start 'node:alpine' '-v /main/node_modules'
+        ;;
+      * )
+        echo 'ERROR: Container is not running'
+        return 1
+        ;;
+    esac
+  fi
+  execute $*
+fi
+
+return 0
