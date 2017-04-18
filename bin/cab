@@ -13,8 +13,14 @@ case $1 in
       sh
     ;;
   'stop' )
-    docker stop `docker ps -qf 'label=cab.primary'`
-    docker stop `docker ps -qf 'label=cab.replica'`
+    primary=`docker ps -qf 'label=cab.primary'`
+    if [ ! -z $primary ]; then
+      docker stop $primary
+    fi
+    replica=`docker ps -qf 'label=cab.replica'`
+    if [ ! -z $primary ]; then
+      docker stop $replica
+    fi
     ;;
   'sh' )
     docker exec \

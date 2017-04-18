@@ -5,9 +5,12 @@ start () {
   local opt=$2
   if [ ! -z $port ]; then
     if [ -z `echo $port | grep ':'` ]; then
-      local used_ports=`docker inspect \
-        --format '{{range .NetworkSettings.Ports}}{{index (index . 0) "HostPort"}}{{end}}' \
-        $replica_ids`
+      local used_ports=''
+      if [ ! -z $replica_ids ]; then
+        used_ports=`docker inspect \
+          --format '{{range .NetworkSettings.Ports}}{{index (index . 0) "HostPort"}}{{end}}' \
+          $replica_ids`
+      fi
       local host_port='4000'
       while [ ! -z `echo $used_ports | grep $host_port` ]
       do
@@ -50,14 +53,30 @@ stop () {
   docker stop $current_id
 }
 
+checkpoint () {
+  local cid=$current_id
+  if [ ! -z $1 ]; then
+    cid=$1
+  fi
+  docker checkpoint create $cid cpt
+}
+
+restore () {
+  local cid=$current_id
+  if [ ! -z $1 ]; then
+    cid=$1
+  fi
+  docker start --checkpoint cpt $cid
+}
+
 update_current () {
-  current_id=`docker ps -q -f "label=cab.path=$PWD"`
+  current_id=`docker ps -qa -f "label=cab.path=$PWD"`
 }
 
 host_home='/Users/pnlybubbles'
 host_pwd=$host_home$PWD
 current_id=''
-replica_ids=`docker ps -q -f 'label=cab.replica' | tr '\n' ' '`
+replica_ids=`docker ps -qa -f 'label=cab.replica' | tr '\n' ' '`
 update_current
 
 if [ -z $1 ]; then
@@ -68,6 +87,8 @@ if [ -z $1 ]; then
   echo -e '\t-p, --port [GUEST]'
   echo -e '\t-s, --status'
   echo -e '\t    --stop'
+  echo -e '\t-c, --checkpoint'
+  echo -e '\t-r, --restore'
   return 0
 fi
 
@@ -83,11 +104,19 @@ do
       shift; port=$1; shift
       ;;
     '--stop')
-      stop
+      shift; stop
       return 0
       ;;
     '-s' | '--status' )
-      status
+      shift; status
+      return 0
+      ;;
+    '-c' | '--checkpoint' )
+      shift; checkpoint $1; shift
+      return 0
+      ;;
+    '-r' | '--restore' )
+      shift; restore $1; shift
       return 0
       ;;
     * )
