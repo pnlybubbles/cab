@@ -17,6 +17,7 @@ start () {
     -itd \
     $1 \
     sh
+  update_current
 }
 
 execute () {
@@ -28,18 +29,25 @@ execute () {
 
 status() {
   replica_ids=`docker ps -q -f 'label=cab.replica'`
-  docker inspect \
-    --format '{{.Config.Hostname}} {{.State.Status}} {{.Config.Image}} {{index .Config.Labels "cab.path"}}' \
-    $replica_ids
+  if [ ! -z $replica_ids ]; then
+    docker inspect \
+      --format '{{.Config.Hostname}} {{.State.Status}} {{.Config.Image}} {{index .Config.Labels "cab.path"}}' \
+      $replica_ids
+  fi
 }
 
 stop () {
   docker stop $current_id
 }
 
+update_current () {
+  current_id=`docker ps -q -f 'label=cab.path=/Users/pnlybubbles/cab/node/grimoire.gl'`
+}
+
 host_home='/Users/pnlybubbles'
 host_pwd=$host_home$PWD
-current_id=`docker ps -q -f 'label=cab.path=/Users/pnlybubbles/cab/node/grimoire.gl'`
+current_id=''
+update_current
 
 if [ -z $1 ]; then
   echo -e 'Usage: d [OPTIONS] [COMMAND]'
@@ -77,7 +85,7 @@ do
   esac
 done
 
-if [ ! -z $current_id ]]; then
+if [ ! -z $current_id ]; then
   execute $*
 else
   if [ ! -z $image ]; then
