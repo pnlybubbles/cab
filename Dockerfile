@@ -65,6 +65,7 @@ RUN set -x \
 
 ## tmux
 RUN apt-get install -y tmux
+RUN git clone https://github.com/edkolev/tmuxline.vim /home/.tmuxline.vim
 
 ## Clean
 

@@ -94,3 +94,7 @@ zstyle ':completion:*' verbose yes
 zstyle ':completion:*:default' menu select=2
 zstyle ':completion:*:descriptions' format '%F{yellow}-- %d --%f'
 zstyle ':completion:*:options' description 'yes'
+
+## Prompt
+
+PROMPT='❯ '
