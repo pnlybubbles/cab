@@ -2,16 +2,21 @@ FROM ubuntu:16.04
 ENV HOME /cab
 ENV PATH /cab/bin:$PATH
 
+## Init
+
+RUN apt-get update
+
 ## Locales
 # https://github.com/docker-library/postgres/blob/69bc540ecfffecce72d49fa7e4a46680350037f9/9.6/Dockerfile#L21-L24
 # make the "en_US.UTF-8" locale so postgres will be utf-8 enabled by default
-RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
+RUN set -x \
+  && apt-get install -y locales \
   && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 ENV LANG en_US.utf8
 
 ## Docker
 RUN set -x \
-  && apt-get update && apt-get install -y ca-certificates curl && rm -rf /var/lib/apt/lists/*
+  && apt-get install -y ca-certificates curl
 
 # https://github.com/docker-library/docker/blob/56215ac49d9947e317154fad823410df1201089b/17.05-rc/Dockerfile#L8-L19
 ENV DOCKER_BUCKET test.docker.com
@@ -32,7 +37,23 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 ## Tools
 RUN set -x \
-  && apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
+  && apt-get install -y git
+
+## Zsh
+ENV ZPLUG_HOME /home/.zplug
+ENV ZPLUG_CACHE_DIR $HOME/.zplug/.cache
+ENV ZPLUG_REPOS $HOME/.zplug/repos
+ENV ZPLUG_BIN $HOME/.zplug/bin
+RUN set -x \
+  && apt-get install -y zsh \
+  && chsh -s `which zsh` \
+  && git clone https://github.com/zplug/zplug $ZPLUG_HOME
+
+## Clean
+
+RUN rm -rf /cab/* \
+  rm -rf /tmp/* \
+  rm -rf /var/lib/apt/lists/*
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 

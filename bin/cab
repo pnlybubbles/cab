@@ -26,11 +26,11 @@ case $1 in
     docker exec \
       -it \
       cab \
-      sh -c 'cd /cab && bash'
+      sh -c 'cd $HOME && zsh'
     ;;
   'clean' )
-    local img=`docker images -f 'dangling=true' -q`
-    if [ ! -z $img ]; then
+    img=`docker images -f 'dangling=true' -q`
+    if [ ! -z "$img" ]; then
       docker rmi $img
     fi
     ;;
