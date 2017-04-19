@@ -35,11 +35,11 @@ RUN set -x \
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-## Tools
+## Git
 RUN set -x \
   && apt-get install -y git
 
-## Zsh
+## zsh
 ENV ZPLUG_HOME /home/.zplug
 ENV ZPLUG_CACHE_DIR $HOME/.zplug/.cache
 ENV ZPLUG_REPOS $HOME/.zplug/repos
@@ -49,10 +49,26 @@ RUN set -x \
   && chsh -s `which zsh` \
   && git clone https://github.com/zplug/zplug $ZPLUG_HOME
 
+## vim
+RUN set -x \
+  && apt-get install -y software-properties-common \
+  && add-apt-repository -y ppa:neovim-ppa/unstable \
+  && apt-get update \
+  && apt-get install neovim
+
+## fzf
+RUN set -x \
+  && git clone --depth 1 https://github.com/junegunn/fzf.git .fzf \
+  && .fzf/install --bin \
+  && cp .fzf/bin/fzf /usr/local/bin \
+  && rm -rf .fzf
+
+## tmux
+RUN apt-get install -y tmux
+
 ## Clean
 
 RUN rm -rf /cab/* \
-  rm -rf /tmp/* \
   rm -rf /var/lib/apt/lists/*
 
 ENTRYPOINT ["docker-entrypoint.sh"]

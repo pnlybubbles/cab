@@ -5,3 +5,4 @@
 !/.gitconfig
 !/docker-entrypoint.sh
 !/.zshrc
+!/.tmux.conf
