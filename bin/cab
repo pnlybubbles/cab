@@ -18,7 +18,7 @@ case $1 in
       docker stop $primary
     fi
     replica=`docker ps -qf 'label=cab.replica'`
-    if [ ! -z "$primary" ]; then
+    if [ ! -z "$replica" ]; then
       docker stop $replica
     fi
     ;;
@@ -26,12 +26,15 @@ case $1 in
     docker exec \
       -it \
       cab \
-      sh -c 'cd /cab && sh'
+      sh -c 'cd /cab && bash'
+    ;;
+  'clean' )
+    local img=`docker images -f 'dangling=true' -q`
+    if [ ! -z $img ]; then
+      docker rmi $img
+    fi
     ;;
   'build' )
-    if [ ! -z `docker images --format '{{.Repository}}' | grep cab` ]; then
-      docker rmi cab
-    fi
     docker build \
       -t cab \
       /Users/pnlybubbles/cab
