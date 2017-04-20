@@ -54,7 +54,12 @@ RUN set -x \
   && apt-get install -y software-properties-common \
   && add-apt-repository -y ppa:neovim-ppa/unstable \
   && apt-get update \
-  && apt-get install neovim
+  && apt-get install neovim \
+  && apt-get remove -y software-properties-common
+RUN set -x \
+  && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh \
+  && sh installer.sh /home/.dein \
+  && rm installer.sh
 
 ## fzf
 RUN set -x \
@@ -64,11 +69,20 @@ RUN set -x \
   && rm -rf .fzf
 
 ## tmux
-RUN apt-get install -y tmux
-RUN git clone https://github.com/edkolev/tmuxline.vim /home/.tmuxline.vim
+RUN set -x \
+  && apt-get install -y build-essential automake pkg-config libevent-dev libncurses5-dev \
+  && git clone --depth=1 -b 2.3 https://github.com/tmux/tmux.git \
+  && cd tmux \
+  && ./autogen.sh \
+  && ./configure \
+  && make \
+  && make install \
+  && apt-get remove -y build-essential automake pkg-config libevent-dev libncurses5-dev \
+  && cd .. \
+  && rm -rf tmux
+RUN git clone https://github.com/edkolev/tmuxline.vim /home/.tmuxline
 
 ## Clean
-
 RUN rm -rf /cab/* \
   rm -rf /var/lib/apt/lists/*
 

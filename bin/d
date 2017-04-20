@@ -80,15 +80,15 @@ replica_ids=`docker ps -qa -f 'label=cab.replica' | tr '\n' ' '`
 update_current
 
 if [ -z $1 ]; then
-  echo -e 'Usage: d [OPTIONS] [COMMAND]'
-  echo -e
-  echo -e 'Options:'
-  echo -e '\t-i, --image [IMAGE]'
-  echo -e '\t-p, --port [GUEST]'
-  echo -e '\t-s, --status'
-  echo -e '\t    --stop'
-  echo -e '\t-c, --checkpoint'
-  echo -e '\t-r, --restore'
+  echo 'Usage: d [OPTIONS] [COMMAND]'
+  echo
+  echo 'Options:'
+  echo '\t-i, --image [IMAGE]'
+  echo '\t-p, --port [GUEST]'
+  echo '\t-s, --status'
+  echo '\t    --stop'
+  echo '\t-c, --checkpoint'
+  echo '\t-r, --restore'
   return 0
 fi
 
