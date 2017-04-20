@@ -84,7 +84,6 @@ RUN set -x \
   && apt-get remove -y build-essential automake pkg-config libevent-dev libncurses5-dev \
   && cd .. \
   && rm -rf tmux
-RUN git clone https://github.com/edkolev/tmuxline.vim /home/.tmuxline
 
 ## Clean
 RUN rm -rf /cab/* \
