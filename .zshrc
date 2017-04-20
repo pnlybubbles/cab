@@ -42,7 +42,6 @@ setopt prompt_subst
 setopt pushd_ignore_dups
 setopt rm_star_wait
 setopt share_history
-setopt transient_rprompt
 
 ## autoload
 
@@ -99,4 +98,26 @@ zstyle ':completion:*:options' description 'yes'
 
 ## Prompt
 
-PROMPT='❯ '
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:git:*' formats '%b' '%c%u'
+zstyle ':vcs_info:git:*' actionformats '%b|%a' '%c%u'
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' stagedstr "+"
+zstyle ':vcs_info:git:*' unstagedstr "-"
+# zstyle ':vcs_info:bzr:*' use-simple true
+BRANCH_ICON=$'\ue725'
+LEFT_LINE_TRIANGLE=$'\ue0b3'
+_vcs_precmd () {
+  vcs_info
+  git_status=''
+  if [ ! -z ${vcs_info_msg_0_} ]; then
+    git_status=${vcs_info_msg_0_}
+    if [ ! -z ${vcs_info_msg_1_} ]; then
+      git_status='● '${git_status}
+    fi
+    git_status=${BRANCH_ICON}' '${git_status}
+  fi
+}
+add-zsh-hook precmd _vcs_precmd
+PROMPT='%F{197}❯ %f'
+RPROMPT=' %F{239}${git_status} ${LEFT_LINE_TRIANGLE} %c%f'

@@ -60,6 +60,10 @@ RUN set -x \
   && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh \
   && sh installer.sh /home/.dein \
   && rm installer.sh
+RUN set -x \
+  && apt-get install -y python3-dev python3-pip \
+  && pip3 install --upgrade pip
+RUN pip3 install neovim
 
 ## fzf
 RUN set -x \
