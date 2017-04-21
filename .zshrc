@@ -62,6 +62,7 @@ export EDITOR=nvim
 export HISTFILE=~/.zhistory
 export HISTSIZE=1000
 export SAVEHIST=1000000
+export TZ=JST-9
 
 ## Keybind
 
