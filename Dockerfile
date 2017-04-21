@@ -48,6 +48,12 @@ RUN set -x \
   && apt-get install -y zsh \
   && chsh -s `which zsh` \
   && git clone https://github.com/zplug/zplug $ZPLUG_HOME
+RUN set -x \
+  && curl -fsL https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh -O \
+  && curl -fsL https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O \
+  && mkdir -p /home/.zsh/completion \
+  && mv git-completion.zsh /home/.zsh/completion \
+  && mv git-completion.bash /home/.zsh/completion
 
 ## vim
 RUN set -x \

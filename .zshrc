@@ -3,9 +3,7 @@
 
 source /home/.zplug/init.zsh
 
-zplug 'zsh-users/zsh-autosuggestions'
 zplug 'zsh-users/zsh-completions'
-zplug 'zsh-users/zsh-syntax-highlighting'
 zplug 'mollifier/anyframe'
 zplug "b4b4r07/enhancd", use:init.sh
 
@@ -43,6 +41,10 @@ setopt prompt_subst
 setopt pushd_ignore_dups
 setopt rm_star_wait
 setopt share_history
+
+## fpath
+
+fpath=(/home/.zsh/completion $fpath)
 
 ## autoload
 
@@ -95,7 +97,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' use-cache true
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*:default' menu select=2
-zstyle ':completion:*:descriptions' format '%F{yellow}-- %d --%f'
+zstyle ':completion:*:descriptions' format '%B≪ %d ≫%f'
 zstyle ':completion:*:options' description 'yes'
 
 ## Prompt
@@ -123,3 +125,7 @@ _vcs_precmd () {
 add-zsh-hook precmd _vcs_precmd
 PROMPT='%F{197}❯ %f'
 RPROMPT=' %F{239}${git_status} ${LEFT_LINE_TRIANGLE} %c%f'
+
+## Load
+
+source .zsh/incr-0.2.zsh
