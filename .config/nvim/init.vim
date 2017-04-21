@@ -26,6 +26,8 @@ if dein#load_state('~/.vim/dein')
   call dein#add('Shougo/neosnippet-snippets')
   call dein#add('tpope/vim-endwise')
   call dein#add('Townk/vim-autoclose')
+  call dein#add('ryanoasis/vim-devicons')
+  call dein#add('tiagofumo/vim-nerdtree-syntax-highlight')
 
   call dein#end()
   call dein#save_state()
@@ -46,6 +48,9 @@ end
 let NERDTreeShowHidden = 1
 let g:NERDTreeDirArrowExpandable = '▶'
 let g:NERDTreeDirArrowCollapsible = '▼'
+autocmd FileType nerdtree setlocal nolist
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
+let NERDTreeMinimalUI=1
 
 " Color Scheme
 
@@ -54,7 +59,7 @@ syntax enable
 colorscheme OceanicNext
 runtime! airline-theme.vim
 let g:airline_theme='custom'
-hi Normal guibg=NONE guifg=#a8a8a8e
+hi Normal guibg=NONE guifg=#b2b2b2
 hi LineNr guifg=#808080 guibg=None
 hi CursorLineNr guifg=#808080 guibg=#3a3a3a
 hi CursorLine guibg=#3a3a3a
@@ -63,8 +68,18 @@ hi GitGutterAdd guibg=None
 hi GitGutterChange guibg=None
 hi GitGutterDelete guibg=None
 hi GitGutterChangeDelete guibg=None
-hi Directory guifg=#a8a8a8
-hi Identifier guifg=#a8a8a8
+hi Directory guifg=#b2b2b2
+hi EndOfBuffer guifg=#292929
+hi NERDTreeDirSlash guifg=#b2b2b2
+hi NERDTreeFile guifg=#808080
+hi NERDTreeOpenable guifg=#808080
+hi NERDTreeClosable guifg=#808080
+hi NERDTreeCWD guifg=#b2b2b2 gui=bold
+set fillchars+=vert:\│
+hi VertSplit guibg=None guifg=#4e4e4e
+hi StatusLine guibg=#4e4e4e
+hi StatusLineNC guibg=#4e4e4e
+hi Search guibg=#585858 guifg=None
 
 autocmd BufWritePre * FixWhitespace
 
