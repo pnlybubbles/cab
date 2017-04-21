@@ -7,6 +7,7 @@ zplug 'zsh-users/zsh-autosuggestions'
 zplug 'zsh-users/zsh-completions'
 zplug 'zsh-users/zsh-syntax-highlighting'
 zplug 'mollifier/anyframe'
+zplug "b4b4r07/enhancd", use:init.sh
 
 if ! zplug check --verbose; then
   zplug install

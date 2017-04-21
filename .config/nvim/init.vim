@@ -39,20 +39,34 @@ endif
 
 let g:neocomplete#enable_at_startup = 1
 
+" nerd
 if argc() == 0
   let g:nerdtree_tabs_open_on_console_startup = 1
 end
-
 let NERDTreeShowHidden = 1
+let g:NERDTreeDirArrowExpandable = '▶'
+let g:NERDTreeDirArrowCollapsible = '▼'
 
+" Color Scheme
 
 set termguicolors
 syntax enable
 colorscheme OceanicNext
+runtime! airline-theme.vim
+let g:airline_theme='custom'
+hi Normal guibg=NONE guifg=#a8a8a8e
+hi LineNr guifg=#808080 guibg=None
+hi CursorLineNr guifg=#808080 guibg=#3a3a3a
+hi CursorLine guibg=#3a3a3a
+hi ColorColumn guibg=None
+hi GitGutterAdd guibg=None
+hi GitGutterChange guibg=None
+hi GitGutterDelete guibg=None
+hi GitGutterChangeDelete guibg=None
+hi Directory guifg=#a8a8a8
+hi Identifier guifg=#a8a8a8
 
-let g:airline_theme='oceanicnext'
-
-autocmd BufWritePre * :FixWhitespace
+autocmd BufWritePre * FixWhitespace
 
 nmap <Leader><Tab> <C-w>w
 nmap <Leader>f :CtrlP<CR>
@@ -86,13 +100,12 @@ set ignorecase
 set incsearch
 set laststatus=2
 set list
-set listchars=eol:¬
+" set listchars=eol:¬
 set mouse=a
 set nobackup
 set nowritebackup
 set noswapfile
 set number
-set ruler
 set scrolloff=4
 set shiftwidth=2
 set showcmd
