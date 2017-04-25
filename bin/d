@@ -2,7 +2,7 @@
 
 start () {
   echo 'starting container: '$1
-  local opt=$2
+  local opt="$2"
   if [ ! -z $port ]; then
     if [ -z `echo $port | grep ':'` ]; then
       local used_ports=''
@@ -134,6 +134,9 @@ else
     case $1 in
       'node' | 'npm' | 'yarn' )
         start 'node:alpine' '-v /main/node_modules'
+        ;;
+      'cabal' | 'ghc' | 'ghci' )
+        start 'haskell:latest' ''
         ;;
       * )
         echo 'ERROR: Container is not running'

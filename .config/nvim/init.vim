@@ -34,6 +34,7 @@ if dein#load_state('~/.vim/dein')
 endif
 
 filetype plugin indent on
+let g:indentLine_color_gui = '#3a3a3a'
 
 if dein#check_install()
   call dein#install()
@@ -80,6 +81,7 @@ hi VertSplit guibg=None guifg=#4e4e4e
 hi StatusLine guibg=#4e4e4e
 hi StatusLineNC guibg=#4e4e4e
 hi Search guibg=#585858 guifg=None
+hi Visual guibg=#585858 guifg=None
 
 autocmd BufWritePre * FixWhitespace
 

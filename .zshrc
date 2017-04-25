@@ -126,6 +126,8 @@ add-zsh-hook precmd _vcs_precmd
 PROMPT='%F{197}❯ %f'
 RPROMPT=' %F{239}${git_status} ${LEFT_LINE_TRIANGLE} %c%f'
 
+## ssh
+
 ## Load
 
-source .zsh/incr-0.2.zsh
+# source /cab/.zsh/incr-0.2.zsh
