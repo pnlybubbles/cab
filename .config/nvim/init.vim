@@ -82,6 +82,8 @@ hi StatusLine guibg=#4e4e4e
 hi StatusLineNC guibg=#4e4e4e
 hi Search guibg=#585858 guifg=None
 hi Visual guibg=#585858 guifg=None
+hi Pmenu guibg=#1c1c1c guifg=#808080
+hi PmenuSel guibg=#1c1c1c guifg=#ff2a5f
 
 autocmd BufWritePre * FixWhitespace
 
@@ -99,6 +101,9 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_splits = 0
 let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#tabline#show_close_button = 0
+
+let g:deoplete#enable_at_startup = 1
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 " Basic
 set autoindent
