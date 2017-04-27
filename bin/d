@@ -6,7 +6,7 @@ start () {
   if [ ! -z $port ]; then
     if [ -z `echo $port | grep ':'` ]; then
       local used_ports=''
-      if [ ! -z $replica_ids ]; then
+      if [ ! -z "$replica_ids" ]; then
         used_ports=`docker inspect \
           --format '{{range .NetworkSettings.Ports}}{{index (index . 0) "HostPort"}}{{end}}' \
           $replica_ids`
