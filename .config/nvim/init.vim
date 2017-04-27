@@ -19,13 +19,10 @@ if dein#load_state('~/.vim/dein')
   call dein#add('mhartington/oceanic-next')
   call dein#add('bronson/vim-trailing-whitespace')
   call dein#add('Yggdroot/indentLine')
-  call dein#add('ctrlpvim/ctrlp.vim')
   call dein#add('rhysd/accelerated-jk')
   call dein#add('tpope/vim-fugitive')
   call dein#add('Shougo/neosnippet.vim')
   call dein#add('Shougo/neosnippet-snippets')
-  call dein#add('tpope/vim-endwise')
-  call dein#add('Townk/vim-autoclose')
   call dein#add('ryanoasis/vim-devicons')
   call dein#add('tiagofumo/vim-nerdtree-syntax-highlight')
 
@@ -39,8 +36,6 @@ let g:indentLine_color_gui = '#3a3a3a'
 if dein#check_install()
   call dein#install()
 endif
-
-let g:neocomplete#enable_at_startup = 1
 
 " nerd
 if argc() == 0
@@ -88,7 +83,6 @@ hi PmenuSel guibg=#1c1c1c guifg=#ff2a5f
 autocmd BufWritePre * FixWhitespace
 
 nmap <Leader><Tab> <C-w>w
-nmap <Leader>f :CtrlP<CR>
 nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
 noremap <C-j> <esc>
@@ -103,7 +97,10 @@ let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#tabline#show_close_button = 0
 
 let g:deoplete#enable_at_startup = 1
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+let g:deoplete#enable_smart_case=1
+imap <silent><expr><CR> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<CR>"
+imap <silent><expr><tab> pumvisible() ? "\<c-n>" : neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
+smap <silent><expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 
 " Basic
 set autoindent
