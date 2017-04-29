@@ -73,13 +73,7 @@ update_current () {
   current_id=`docker ps -qa -f "label=cab.path=$PWD"`
 }
 
-host_home='/Users/pnlybubbles'
-host_pwd=$host_home$PWD
-current_id=''
-replica_ids=`docker ps -qa -f 'label=cab.replica' | tr '\n' ' '`
-update_current
-
-if [ -z $1 ]; then
+show_help() {
   echo 'Usage: d [OPTIONS] [COMMAND]'
   echo
   echo 'Options:'
@@ -89,6 +83,17 @@ if [ -z $1 ]; then
   echo '\t    --stop'
   echo '\t-c, --checkpoint'
   echo '\t-r, --restore'
+  echo '\t-h, --help'
+}
+
+host_home='/Users/pnlybubbles'
+host_pwd=$host_home$PWD
+current_id=''
+replica_ids=`docker ps -qa -f 'label=cab.replica' | tr '\n' ' '`
+update_current
+
+if [ -z $1 ]; then
+  show_help
   return 0
 fi
 
@@ -117,6 +122,10 @@ do
       ;;
     '-r' | '--restore' )
       shift; restore $1; shift
+      return 0
+      ;;
+    '-h' | '--help' )
+      shift; show_help;
       return 0
       ;;
     * )
