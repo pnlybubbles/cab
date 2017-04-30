@@ -144,7 +144,7 @@ else
       'node' | 'npm' | 'yarn' )
         start 'node:alpine' '-v /main/node_modules'
         ;;
-      'cabal' | 'ghc' | 'ghci' )
+      'cabal' | 'ghc' | 'ghci' | 'stack' )
         start 'haskell:latest' ''
         ;;
       * )
