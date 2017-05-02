@@ -25,6 +25,18 @@
 * iTerm2: Pref -> Appearance -> Window & Tab Titles (Only check "Show profile name")
 * iTerm2: Pref -> Advanced -> (Search "mergin") -> General -> (Set mergins to 25, 25)
 
+# Docker Configuration
+
+Remap detach keys inside container
+
+`~/.docker/config.json`
+
+```json
+{
+    "detachKeys": "ctrl-\\"
+}
+```
+
 # Usage
 
 ## Run container
