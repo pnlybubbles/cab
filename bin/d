@@ -147,6 +147,9 @@ else
       'cabal' | 'ghc' | 'ghci' | 'stack' )
         start 'haskell:latest' ''
         ;;
+      'rustc' | 'rust-gdb' | 'rust-lldb' | 'cargo' )
+        start 'scorpil/rust:nightly' ''
+        ;;
       * )
         echo 'ERROR: Container is not running'
         return 1
