@@ -102,6 +102,12 @@ imap <silent><expr><CR> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_
 imap <silent><expr><tab> pumvisible() ? "\<c-n>" : neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 smap <silent><expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 
+nnoremap [Tag] <Nop>
+nmap t [Tag]
+nnoremap H gT
+nnoremap L gt
+inoremap <c-e> <c-o>$
+
 " Basic
 set autoindent
 set autoread
