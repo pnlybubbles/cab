@@ -71,13 +71,6 @@ RUN set -x \
   && pip3 install --upgrade pip
 RUN pip3 install neovim
 
-## fzf
-RUN set -x \
-  && git clone --depth 1 https://github.com/junegunn/fzf.git .fzf \
-  && .fzf/install --bin \
-  && cp .fzf/bin/fzf /usr/local/bin \
-  && rm -rf .fzf
-
 ## tmux
 RUN set -x \
   && apt-get install -y build-essential automake pkg-config libevent-dev libncurses5-dev \
