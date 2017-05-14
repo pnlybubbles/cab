@@ -1,7 +1,9 @@
 [user]
-	email = pnlybubbles@gmail.com
-	name = pnlybubbles
+  email = pnlybubbles@gmail.com
+  name = pnlybubbles
 
+[push]
+  default = simple
 [pull]
   ff = true
 
