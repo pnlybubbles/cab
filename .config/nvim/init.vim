@@ -26,6 +26,8 @@ if dein#load_state('~/.vim/dein')
   call dein#add('Shougo/denite.nvim')
   call dein#add('jiangmiao/auto-pairs')
   call dein#add('tpope/vim-commentary')
+  call dein#add('Shougo/neoyank.vim')
+  call dein#add('Shougo/neomru.vim')
 
   call dein#end()
   call dein#save_state()
@@ -96,6 +98,18 @@ nnoremap H gT
 nnoremap L gt
 inoremap <c-e> <c-o>$
 
+nnoremap <silent> <c-p>p :<c-u>Denite file_rec<CR>
+nnoremap <silent> <c-p>g :<c-u>Denite grep<CR>
+nnoremap <silent> <c-p>l :<c-u>Denite line<CR>
+nnoremap <silent> <c-k>m :<c-u>Denite file_mru<CR>
+nnoremap <silent> <c-k>y :<c-u>Denite neoyank<CR>
+call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+call denite#custom#var('grep', 'command', ['ag'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'final_opts', [])
+call denite#custom#var('grep', 'separator', [])
+call denite#custom#var('grep', 'default_opts', ['--nocolor', '--nogroup'])
+
 " Basic
 set autoindent
 set autoread
@@ -138,3 +152,4 @@ set wildmenu
 set wildmode=list:longest,full
 set wrap
 set wrapscan
+set guicursor=a:blinkon0

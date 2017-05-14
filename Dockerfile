@@ -84,6 +84,10 @@ RUN set -x \
   && cd .. \
   && rm -rf tmux
 
+## ag
+RUn set -x \
+  && apt-get install -y silversearcher-ag
+
 ## Clean
 RUN rm -rf /cab/* \
   rm -rf /var/lib/apt/lists/*
