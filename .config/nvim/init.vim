@@ -16,7 +16,6 @@ if dein#load_state('~/.vim/dein')
   call dein#add('mhartington/oceanic-next')
   call dein#add('bronson/vim-trailing-whitespace')
   call dein#add('Yggdroot/indentLine')
-  call dein#add('rhysd/accelerated-jk')
   call dein#add('tpope/vim-fugitive')
   call dein#add('Shougo/neosnippet.vim')
   call dein#add('Shougo/neosnippet-snippets')
@@ -37,17 +36,6 @@ let g:indentLine_color_gui = '#3a3a3a'
 if dein#check_install()
   call dein#install()
 endif
-
-" nerd
-if argc() == 0
-  let g:nerdtree_tabs_open_on_console_startup = 1
-end
-let NERDTreeShowHidden = 1
-let g:NERDTreeDirArrowExpandable = '▶'
-let g:NERDTreeDirArrowCollapsible = '▼'
-autocmd FileType nerdtree setlocal nolist
-let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
-let NERDTreeMinimalUI=1
 
 " Color Scheme
 
@@ -84,8 +72,6 @@ hi PmenuSel guibg=#1c1c1c guifg=#ff2a5f
 autocmd BufWritePre * FixWhitespace
 
 nmap <Leader><Tab> <C-w>w
-nmap j <Plug>(accelerated_jk_gj)
-nmap k <Plug>(accelerated_jk_gk)
 noremap <C-j> <esc>
 noremap! <C-j> <esc>
 
@@ -115,7 +101,7 @@ set autoread
 set backspace=indent,eol,start
 set colorcolumn=80
 set confirm
-set cursorline
+" set cursorline " too heavy
 set encoding=utf8
 set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
 set expandtab
