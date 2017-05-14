@@ -1,5 +1,17 @@
 #!/bin/sh
 
+show_help () {
+  echo 'Usage: cab [COMMAND]'
+  echo
+  echo 'Commands:'
+  echo '\t start           start container'
+  echo '\t sh [ARGUMENTS]  attach to container. if [ARGUMENTS] specified, it will be executed.'
+  echo '\t stop            stop containers including started from inside container'
+  echo '\t clean           clean unused images'
+  echo '\t build           build image'
+  echo '\t help, --help    show this'
+}
+
 case $1 in
   '' | 'start' )
     docker run \
@@ -22,10 +34,18 @@ case $1 in
     fi
     ;;
   'sh' )
+    shift
+    entry='zsh -c'
+    cmd='eval `ssh-agent` && ssh-add && source ~/.zshrc-packages && env TERM=xterm-256color tmux'
+    if [ ! -z "$*" ]; then
+      entry=$1
+      shift
+      cmd=$*
+    fi
     docker exec \
       -it \
       cab \
-      sh -c 'eval `ssh-agent` && ssh-add && env TERM=xterm-256color tmux'
+      $entry "$cmd"
     ;;
   'clean' )
     img=`docker images -f 'dangling=true' -q`
@@ -40,8 +60,13 @@ case $1 in
       $* \
       /Users/pnlybubbles/cab
     ;;
+  'help' | '--help')
+    show_help
+    ;;
   * )
     echo 'ERROR: Unknown arguments'
+    echo
+    show_help
     return 1
     ;;
 esac

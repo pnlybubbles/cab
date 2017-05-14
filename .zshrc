@@ -1,21 +1,4 @@
 # http://post.simplie.jp/posts/60
-## zplug
-
-source /home/.zplug/init.zsh
-
-zplug 'zsh-users/zsh-completions'
-zplug 'mollifier/anyframe'
-zplug "b4b4r07/enhancd", use:init.sh
-
-if ! zplug check --verbose; then
-  zplug install
-fi
-
-zplug load --verbose
-
-## tmux
-
-~/.tmux/plugins/tpm/bin/install_plugins
 
 ## Basic
 

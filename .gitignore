@@ -6,6 +6,7 @@
 !/.gitconfig
 !/docker-entrypoint.sh
 !/.zshrc
+!/.zshrc-packages
 !/.tmux.conf
 !/.config
 !/cab.itermcolors

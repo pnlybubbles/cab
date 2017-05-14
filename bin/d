@@ -58,7 +58,7 @@ checkpoint () {
   if [ ! -z $1 ]; then
     cid=$1
   fi
-  docker checkpoint create $cid cpt
+  docker checkpoint create $cid "__default"
 }
 
 restore () {
@@ -66,7 +66,7 @@ restore () {
   if [ ! -z $1 ]; then
     cid=$1
   fi
-  docker start --checkpoint cpt $cid
+  docker start --checkpoint "__default" $cid
 }
 
 update_current () {
@@ -76,14 +76,16 @@ update_current () {
 show_help() {
   echo 'Usage: d [OPTIONS] [COMMAND]'
   echo
+  echo 'The specified [COMMAND] will be executed in the suitable container'
+  echo
   echo 'Options:'
-  echo '\t-i, --image [IMAGE]'
-  echo '\t-p, --port [GUEST]'
-  echo '\t-s, --status'
-  echo '\t    --stop'
-  echo '\t-c, --checkpoint'
-  echo '\t-r, --restore'
-  echo '\t-h, --help'
+  echo '\t-i, --image [IMAGE]  Run [COMMAND] with specified [IMAGE]'
+  echo '\t-p, --port [GUEST]   Attach port [GUEST] to vacant port in host'
+  echo '\t-s, --status         Show detail of running containers'
+  echo '\t    --stop           Stop container on current directory'
+  echo '\t-c, --checkpoint     Suspend container (CRIU)'
+  echo '\t-r, --restore        Resume container (CRIU)'
+  echo '\t-h, --help           show this'
 }
 
 host_home='/Users/pnlybubbles'
@@ -152,6 +154,8 @@ else
         ;;
       * )
         echo 'ERROR: Container is not running'
+        echo
+        show_help
         return 1
         ;;
     esac
