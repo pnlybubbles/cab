@@ -1,5 +1,15 @@
 # http://post.simplie.jp/posts/60
 
+# Profiling
+
+# zmodload zsh/zprof
+
+## zplug
+
+source /home/.zplug/init.zsh
+source $HOME/.zplug-list
+zplug load
+
 ## Basic
 
 setopt auto_list
@@ -32,7 +42,7 @@ fpath=(/home/.zsh/completion $fpath)
 ## autoload
 
 autoload -Uz add-zsh-hook
-autoload -Uz compinit && compinit -u
+autoload -Uz compinit
 autoload -Uz url-quote-magic
 autoload -Uz vcs_info
 zle -N self-insert url-quote-magic
@@ -91,7 +101,6 @@ zstyle ':vcs_info:git:*' actionformats '%b|%a' '%c%u'
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "+"
 zstyle ':vcs_info:git:*' unstagedstr "-"
-# zstyle ':vcs_info:bzr:*' use-simple true
 BRANCH_ICON=$'\ue725'
 LEFT_LINE_TRIANGLE=$'\ue0b3'
 _vcs_precmd () {
@@ -109,8 +118,9 @@ add-zsh-hook precmd _vcs_precmd
 PROMPT='%F{197}❯ %f'
 RPROMPT=' %F{239}${git_status} ${LEFT_LINE_TRIANGLE} %c%f'
 
-## ssh
+# Profiling
 
-## Load
+# if type zprof > /dev/null 2>&1; then
+#   zprof | less
+# fi
 
-# source /cab/.zsh/incr-0.2.zsh

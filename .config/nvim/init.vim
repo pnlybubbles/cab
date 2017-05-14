@@ -25,6 +25,7 @@ if dein#load_state('~/.vim/dein')
   call dein#add('neovimhaskell/haskell-vim')
   call dein#add('Shougo/denite.nvim')
   call dein#add('jiangmiao/auto-pairs')
+  call dein#add('tpope/vim-commentary')
 
   call dein#end()
   call dein#save_state()

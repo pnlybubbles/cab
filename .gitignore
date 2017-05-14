@@ -7,6 +7,7 @@
 !/docker-entrypoint.sh
 !/.zshrc
 !/.zshrc-packages
+!/.zplug-list
 !/.tmux.conf
 !/.config
 !/cab.itermcolors
