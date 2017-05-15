@@ -28,6 +28,7 @@ if dein#load_state('~/.vim/dein')
   call dein#add('tpope/vim-commentary')
   call dein#add('Shougo/neoyank.vim')
   call dein#add('Shougo/neomru.vim')
+  call dein#add('cocopon/vaffle.vim')
 
   call dein#end()
   call dein#save_state()
@@ -74,14 +75,14 @@ hi PmenuSel guibg=#1c1c1c guifg=#ff2a5f
 
 autocmd BufWritePre * FixWhitespace
 
-nmap <Leader><Tab> <C-w>w
 noremap <C-j> <esc>
 noremap! <C-j> <esc>
 
+nnoremap : ;
+nnoremap ; :
+
 let g:airline#extensions#branch#enabled = 1
-
 let g:airline#extensions#tabline#enabled = 1
-
 let g:airline#extensions#tabline#show_splits = 0
 let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#tabline#show_close_button = 0
@@ -92,17 +93,17 @@ imap <silent><expr><CR> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_
 imap <silent><expr><tab> pumvisible() ? "\<c-n>" : neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 smap <silent><expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 
-nnoremap [Tag] <Nop>
-nmap t [Tag]
-nnoremap H gT
-nnoremap L gt
+nnoremap H :<c-u>bprevious<CR>
+nnoremap L :<c-u>bnext<CR>
+
 inoremap <c-e> <c-o>$
 
 nnoremap <silent> <c-p>p :<c-u>Denite file_rec<CR>
 nnoremap <silent> <c-p>g :<c-u>Denite grep<CR>
 nnoremap <silent> <c-p>l :<c-u>Denite line<CR>
-nnoremap <silent> <c-k>m :<c-u>Denite file_mru<CR>
-nnoremap <silent> <c-k>y :<c-u>Denite neoyank<CR>
+nnoremap <silent> <c-p>m :<c-u>Denite file_mru<CR>
+nnoremap <silent> <c-p>y :<c-u>Denite neoyank<CR>
+nnoremap <silent> <c-p>e :<c-u>Denite buffer<CR>
 call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
 call denite#custom#var('grep', 'command', ['ag'])
 call denite#custom#var('grep', 'recursive_opts', [])
@@ -127,7 +128,6 @@ set ignorecase
 set incsearch
 set laststatus=2
 set list
-" set listchars=eol:¬
 set mouse=a
 set nobackup
 set nowritebackup
