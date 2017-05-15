@@ -59,11 +59,6 @@ hi GitGutterDelete guibg=None
 hi GitGutterChangeDelete guibg=None
 hi Directory guifg=#b2b2b2
 hi EndOfBuffer guifg=#292929
-hi NERDTreeDirSlash guifg=#b2b2b2
-hi NERDTreeFile guifg=#808080
-hi NERDTreeOpenable guifg=#808080
-hi NERDTreeClosable guifg=#808080
-hi NERDTreeCWD guifg=#b2b2b2 gui=bold
 set fillchars+=vert:\│
 hi VertSplit guibg=None guifg=#4e4e4e
 hi StatusLine guibg=#4e4e4e
@@ -95,6 +90,8 @@ smap <silent><expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnipp
 
 nnoremap H :<c-u>bprevious<CR>
 nnoremap L :<c-u>bnext<CR>
+
+nnoremap <expr> <c-l> ':<c-u>Vaffle ' . expand('%:h') . '<CR>'
 
 inoremap <c-e> <c-o>$
 
