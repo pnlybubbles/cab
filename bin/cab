@@ -35,17 +35,17 @@ case $1 in
     ;;
   'sh' )
     shift
-    entry='zsh -c'
-    cmd='eval `ssh-agent` && ssh-add && source ~/.zshrc-packages && env TERM=xterm-256color tmux'
     if [ ! -z "$*" ]; then
-      entry=$1
-      shift
-      cmd=$*
+      docker exec \
+        -it \
+        cab \
+        $*
+    else
+      docker exec \
+        -it \
+        cab \
+        zsh -c 'eval `ssh-agent` && ssh-add && source ~/.zshrc-packages && env TERM=xterm-256color tmux'
     fi
-    docker exec \
-      -it \
-      cab \
-      $entry "$cmd"
     ;;
   'clean' )
     img=`docker images -f 'dangling=true' -q`
