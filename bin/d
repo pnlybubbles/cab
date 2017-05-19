@@ -58,7 +58,7 @@ checkpoint () {
   if [ ! -z $1 ]; then
     cid=$1
   fi
-  docker checkpoint create $cid "__default"
+  docker checkpoint create $cid "default__"
 }
 
 restore () {
@@ -140,7 +140,7 @@ if [ ! -z $current_id ]; then
   execute $*
 else
   if [ ! -z $image ]; then
-    start $image
+    start $image ''
   else
     case $1 in
       'node' | 'npm' | 'yarn' )
@@ -151,6 +151,9 @@ else
         ;;
       'rustc' | 'rust-gdb' | 'rust-lldb' | 'cargo' )
         start 'scorpil/rust:nightly' ''
+        ;;
+      'ruby' | 'bundle' )
+        start 'ruby:latest' ''
         ;;
       * )
         echo 'ERROR: Container is not running'
