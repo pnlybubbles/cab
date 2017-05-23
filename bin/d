@@ -2,28 +2,11 @@
 
 start () {
   echo 'starting container: '$1
-  local opt="$2"
-  if [ ! -z $port ]; then
-    if [ -z `echo $port | grep ':'` ]; then
-      local used_ports=''
-      if [ ! -z "$replica_ids" ]; then
-        used_ports=`docker inspect \
-          --format '{{range .NetworkSettings.Ports}}{{index (index . 0) "HostPort"}}{{end}}' \
-          $replica_ids`
-      fi
-      local host_port='4000'
-      while [ ! -z `echo $used_ports | grep $host_port` ]
-      do
-        host_port=`expr $host_port + 1`
-      done
-      port=$host_port':'$port
-    fi
-    opt=$opt' -p '$port
-  fi
+  local allopt="$2 $opt"
   local name=`echo $PWD | sed -e s#/#-#g | sed -e s/^-//`
   docker run \
     -v $host_pwd:/main \
-    $opt \
+    $allopt \
     --name $name \
     --label cab.replica \
     --label cab.path="$PWD" \
@@ -101,6 +84,7 @@ fi
 
 image=''
 port=''
+opt=''
 while :
 do
   case $1 in
@@ -134,6 +118,24 @@ do
       break
       ;;
   esac
+  if [ ! -z $port ]; then
+    if [ -z `echo $port | grep ':'` ]; then
+      used_ports=''
+      if [ ! -z "$replica_ids" ]; then
+        used_ports=`docker inspect \
+          --format '{{range .NetworkSettings.Ports}}{{index (index . 0) "HostPort"}}{{end}}' \
+          $replica_ids`
+      fi
+      host_port='4000'
+      while [ ! -z `echo $used_ports | grep $host_port` ]
+      do
+        host_port=`expr $host_port + 1`
+      done
+      port=$host_port':'$port
+    fi
+    opt=$opt' -p '$port
+    port=''
+  fi
 done
 
 if [ ! -z $current_id ]; then
