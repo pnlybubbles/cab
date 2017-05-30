@@ -29,6 +29,7 @@ if dein#load_state('~/.vim/dein')
   call dein#add('Shougo/neoyank.vim')
   call dein#add('Shougo/neomru.vim')
   call dein#add('cocopon/vaffle.vim')
+  call dein#add('terryma/vim-multiple-cursors')
 
   call dein#end()
   call dein#save_state()
@@ -101,7 +102,6 @@ nnoremap <silent> <c-p>l :<c-u>Denite line<CR>
 nnoremap <silent> <c-p>m :<c-u>Denite file_mru<CR>
 nnoremap <silent> <c-p>y :<c-u>Denite neoyank<CR>
 nnoremap <silent> <c-p>e :<c-u>Denite buffer<CR>
-call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
 call denite#custom#var('grep', 'command', ['ag'])
 call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'final_opts', [])
