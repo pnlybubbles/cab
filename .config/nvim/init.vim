@@ -108,6 +108,8 @@ call denite#custom#var('grep', 'final_opts', [])
 call denite#custom#var('grep', 'separator', [])
 call denite#custom#var('grep', 'default_opts', ['--nocolor', '--nogroup'])
 
+let g:multi_cursor_quit_key='<c-j>'
+
 " Basic
 set autoindent
 set autoread
