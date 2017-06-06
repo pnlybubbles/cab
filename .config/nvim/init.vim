@@ -24,7 +24,8 @@ if dein#load_state('~/.vim/dein')
   call dein#add('rust-lang/rust.vim')
   call dein#add('neovimhaskell/haskell-vim')
   call dein#add('Shougo/denite.nvim')
-  call dein#add('jiangmiao/auto-pairs')
+  " call dein#add('jiangmiao/auto-pairs')
+  call dein#add('Townk/vim-autoclose')
   call dein#add('tpope/vim-commentary')
   call dein#add('Shougo/neoyank.vim')
   call dein#add('Shougo/neomru.vim')
@@ -85,9 +86,39 @@ let g:airline#extensions#tabline#show_close_button = 0
 
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case=1
-imap <silent><expr><CR> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<CR>"
-imap <silent><expr><tab> pumvisible() ? "\<c-n>" : neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
-smap <silent><expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
+set completeopt=menuone,preview,noinsert
+imap <silent><expr><CR> <SID>completion_expand()
+imap <silent><expr><tab> <SID>completion_select()
+smap <silent><expr><tab> <SID>snippets_jump()
+imap <silent><s-tab> <c-p>
+
+function! s:completion_select()
+  if pumvisible()
+    return "\<c-n>"
+  else
+    return s:snippets_jump()
+  endif
+endfunction
+
+function! s:snippets_jump()
+  if neosnippet#expandable_or_jumpable()
+    return "\<Plug>(neosnippet_expand_or_jump)"
+  else
+    return "\<tab>"
+  endif
+endfunction
+
+function! s:completion_expand()
+  if neosnippet#expandable()
+    return "\<Plug>(neosnippet_expand_or_jump)"
+  else
+    if pumvisible()
+      return "\<c-y>"
+    else
+      return "\<CR>"
+    endif
+  endif
+endfunction
 
 nnoremap H :<c-u>bprevious<CR>
 nnoremap L :<c-u>bnext<CR>
