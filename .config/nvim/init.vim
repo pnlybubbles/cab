@@ -101,7 +101,7 @@ nnoremap <silent> <c-p>g :<c-u>Denite grep<CR>
 nnoremap <silent> <c-p>l :<c-u>Denite line<CR>
 nnoremap <silent> <c-p>m :<c-u>Denite file_mru<CR>
 nnoremap <silent> <c-p>y :<c-u>Denite neoyank<CR>
-nnoremap <silent> <c-p>e :<c-u>Denite buffer<CR>
+nnoremap <silent> <c-k> :<c-u>Denite buffer<CR>
 call denite#custom#var('grep', 'command', ['ag'])
 call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'final_opts', [])
