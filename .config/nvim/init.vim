@@ -90,11 +90,11 @@ set completeopt=menuone,preview,noinsert
 imap <silent><expr><CR> <SID>completion_expand()
 imap <silent><expr><tab> <SID>completion_select()
 smap <silent><expr><tab> <SID>snippets_jump()
-imap <silent><s-tab> <c-p>
+imap <silent><s-tab> <Up>
 
 function! s:completion_select()
   if pumvisible()
-    return "\<c-n>"
+    return "\<Down>"
   else
     return s:snippets_jump()
   endif
