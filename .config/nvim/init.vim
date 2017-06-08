@@ -143,6 +143,8 @@ let g:multi_cursor_quit_key='<c-j>'
 
 let g:rust_recommended_style=0
 
+let g:AutoCloseSelectionWrapPrefix='a'
+
 " Basic
 set autoindent
 set autoread
