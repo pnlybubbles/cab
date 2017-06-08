@@ -146,7 +146,7 @@ else
   else
     case $1 in
       'node' | 'npm' | 'yarn' )
-        start 'node:alpine' '-v /main/node_modules'
+        start 'node:latest' '-v /main/node_modules'
         ;;
       'cabal' | 'ghc' | 'ghci' | 'stack' )
         start 'haskell:latest' ''
