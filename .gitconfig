@@ -1,9 +1,13 @@
+[core]
+  excludesfile = ~/.gitignore_global
+
 [user]
   email = pnlybubbles@gmail.com
   name = pnlybubbles
 
 [push]
   default = simple
+
 [pull]
   ff = true
 

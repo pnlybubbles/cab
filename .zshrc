@@ -118,6 +118,10 @@ add-zsh-hook precmd _vcs_precmd
 PROMPT='%F{197}❯ %f'
 RPROMPT=' %F{239}${git_status} ${LEFT_LINE_TRIANGLE} %c%f'
 
+# Misc
+
+eval "$(direnv hook zsh)"
+
 # Profiling
 
 # if type zprof > /dev/null 2>&1; then

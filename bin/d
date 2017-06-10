@@ -52,6 +52,38 @@ restore () {
   docker start --checkpoint "__default" $cid
 }
 
+get_port() {
+  local used_ports=''
+  if [ ! -z "$replica_ids" ]; then
+  used_ports=`docker inspect \
+      --format '{{range .NetworkSettings.Ports}}{{index (index . 0) "HostPort"}}{{end}}' \
+      $replica_ids`
+  fi
+  local host_port='4000'
+  while [ ! -z `echo $used_ports | grep $host_port` ]
+  do
+    host_port=`expr $host_port + 1`
+  done
+  echo $host_port
+}
+
+paired_port() {
+  local ret=$1
+  if [ -z `echo $1 | grep ':'` ]; then
+    ret=`get_port`':'$1
+  fi
+  echo $ret
+}
+
+env_opt() {
+  local ret=''
+  for p in $DOCKER_EXPOSE_PORT
+  do
+    ret='-p '`paired_port $p`
+  done
+  echo $ret
+}
+
 update_current () {
   current_id=`docker ps -qa -f "label=cab.path=$PWD"`
 }
@@ -119,24 +151,12 @@ do
       ;;
   esac
   if [ ! -z $port ]; then
-    if [ -z `echo $port | grep ':'` ]; then
-      used_ports=''
-      if [ ! -z "$replica_ids" ]; then
-        used_ports=`docker inspect \
-          --format '{{range .NetworkSettings.Ports}}{{index (index . 0) "HostPort"}}{{end}}' \
-          $replica_ids`
-      fi
-      host_port='4000'
-      while [ ! -z `echo $used_ports | grep $host_port` ]
-      do
-        host_port=`expr $host_port + 1`
-      done
-      port=$host_port':'$port
-    fi
-    opt=$opt' -p '$port
+    opt=$opt' -p '`paired_port $port`
     port=''
   fi
 done
+
+opt=$opt`env_opt`
 
 if [ ! -z $current_id ]; then
   execute $*

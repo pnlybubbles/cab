@@ -85,8 +85,12 @@ RUN set -x \
   && rm -rf tmux
 
 ## ag
-RUn set -x \
+RUN set -x \
   && apt-get install -y silversearcher-ag
+
+## direnv
+RUN set -x \
+  && apt-get install -y direnv
 
 ## Clean
 RUN rm -rf /cab/* \
