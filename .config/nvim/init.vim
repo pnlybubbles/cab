@@ -124,6 +124,7 @@ nnoremap H :<c-u>bprevious<CR>
 nnoremap L :<c-u>bnext<CR>
 
 nnoremap <expr> <c-l> ':<c-u>Vaffle ' . expand('%:h') . '<CR>'
+let g:vaffle_show_hidden_files=1
 
 inoremap <c-e> <c-o>$
 
