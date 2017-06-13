@@ -60,7 +60,7 @@ RUN set -x \
   && apt-get install -y software-properties-common \
   && add-apt-repository -y ppa:neovim-ppa/unstable \
   && apt-get update \
-  && apt-get install neovim \
+  && apt-get install neovim -y \
   && apt-get remove -y software-properties-common
 RUN set -x \
   && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh \
