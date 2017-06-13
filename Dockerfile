@@ -92,6 +92,10 @@ RUN set -x \
 RUN set -x \
   && apt-get install -y direnv
 
+## netcat
+RUN set -x \
+  && apt-get install -y netcat-openbsd
+
 ## Clean
 RUN rm -rf /cab/* \
   rm -rf /var/lib/apt/lists/*

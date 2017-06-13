@@ -4,12 +4,12 @@ show_help () {
   echo 'Usage: cab [COMMAND]'
   echo
   echo 'Commands:'
-  echo '\t start           start container'
-  echo '\t sh [ARGUMENTS]  attach to container. if [ARGUMENTS] specified, it will be executed.'
-  echo '\t stop            stop containers including started from inside container'
-  echo '\t clean           clean unused images'
-  echo '\t build           build image'
-  echo '\t help, --help    show this'
+  echo '\t start             start container'
+  echo '\t sh [ARGUMENTS]    attach to container. if [ARGUMENTS] specified, it will be executed.'
+  echo '\t stop              stop containers including started from inside container'
+  echo '\t clean             clean unused images'
+  echo '\t build [ARGUMENTS] build image. [ARGUMENTS] will be passed to docker'
+  echo '\t help, --help      show this'
 }
 
 case $1 in

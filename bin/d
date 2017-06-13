@@ -174,7 +174,7 @@ else
       'rustc' | 'rust-gdb' | 'rust-lldb' | 'cargo' )
         start 'scorpil/rust:nightly' ''
         ;;
-      'ruby' | 'bundle' )
+      'ruby' | 'irb' | 'bundle' )
         start 'ruby:latest' ''
         ;;
       * )
