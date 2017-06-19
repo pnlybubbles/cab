@@ -33,6 +33,7 @@
   plr = pull --rebase
   p = push
   po = push -u origin
+  poc = !git push -u origin $(git current-branch)
   ph = push heroku
   l = log
   lm = log --author=pnlybubbles
@@ -93,3 +94,4 @@
   r = reflog
   delete-merged-branch = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|develop|master'|xargs git branch -d; };f"
   w = worktree
+  current-branch = rev-parse --abbrev-ref HEAD
