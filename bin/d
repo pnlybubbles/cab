@@ -79,7 +79,7 @@ env_opt() {
   local ret=''
   for p in $DOCKER_EXPOSE_PORT
   do
-    ret='-p '`paired_port $p`
+    ret=$ret'-p '`paired_port $p`
   done
   echo $ret
 }
@@ -117,6 +117,11 @@ fi
 image=''
 port=''
 opt=''
+
+if [ ! -z "$DOCKER_RUN_IMAGE"  ]; then
+  image=$DOCKER_RUN_IMAGE
+fi
+
 while :
 do
   case $1 in
