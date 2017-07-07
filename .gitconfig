@@ -27,6 +27,7 @@
   aa = add --all
   ap = add -p
   cm = commit
+  cm-empty = commit --allow-empty --allow-empty-message -m ''
   co = commit -a
   ca = commit --amend
   pl = pull --prune
