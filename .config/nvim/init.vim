@@ -149,6 +149,10 @@ let g:AutoCloseSelectionWrapPrefix='a'
 " Basic
 set autoindent
 set autoread
+augroup vimrc-checktime
+  autocmd!
+  autocmd WinEnter * checktime
+augroup END
 set backspace=indent,eol,start
 set colorcolumn=80
 set confirm
