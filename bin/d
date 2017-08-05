@@ -60,7 +60,7 @@ get_port() {
       $replica_ids`
   fi
   local host_port='4000'
-  while [ ! -z `echo $used_ports | grep $host_port` ]
+  while [ ! -z `echo "$used_ports" | grep $host_port` ]
   do
     host_port=`expr $host_port + 1`
   done
@@ -79,7 +79,7 @@ env_opt() {
   local ret=''
   for p in $DOCKER_EXPOSE_PORT
   do
-    ret=$ret'-p '`paired_port $p`
+    ret=$ret' -p '`paired_port $p`
   done
   echo $ret
 }
@@ -161,11 +161,11 @@ do
   fi
 done
 
-opt=$opt`env_opt`
-
 if [ ! -z $current_id ]; then
   execute $*
 else
+  opt=$opt`env_opt`
+
   if [ ! -z $image ]; then
     start $image ''
   else
