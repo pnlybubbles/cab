@@ -12,24 +12,35 @@
   ff = true
 
 [alias]
+  g = grep
   n = now
   i = init
   cl = clone
   s = status
   sh = show
   sho = remote show origin
+  ra = remote add
+  rao = remote add origin
+  rem = remote -v
   f = fetch
   re = rebase
   rea = rebase --abort
   rec = rebase --continue
+  pk = cherry-pick
+  pka = cherry-pick --abort
+  pkc = cherry-pick --continue
+  cherry-pick-range = "!$SHELL -c 'git cherry-pick $(fcs)..$(fcs)'"
   m = merge --no-ff
+  mff = merge --ff
   a = add
   aa = add --all
   ap = add -p
   cm = commit
+  wip = commit -m 'wip'
   cm-empty = commit --allow-empty --allow-empty-message -m ''
   co = commit -a
   ca = commit --amend
+  t = tag
   pl = pull --prune
   plr = pull --rebase
   p = push
@@ -41,6 +52,9 @@
   lp = log -p
   tr = log --all --graph --pretty='format:%C(yellow)%h%Creset%C(red)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   d = diff
+  diff-with = "!$SHELL -c 'git diff $(fcs)'"
+  diff-between = "!$SHELL -c 'git diff $(fcs)..$(fcs)'"
+  dp = diff HEAD~1
   dn = diff --name-only
   dd = diff develop
   ddn = diff develop --name-only
@@ -95,4 +109,6 @@
   r = reflog
   delete-merged-branch = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|develop|master'|xargs git branch -d; };f"
   w = worktree
+  enable-rerere = config rerere.enabled true
   current-branch = rev-parse --abbrev-ref HEAD
+  merge-feat = "!f() { if [ $(git current-branch) = 'pu' ]; then git reset --hard master; for b in $(git branch --sort=committerdate | grep 'feat/'); do git merge --no-ff --no-edit $b; done; else echo 'merge-feat is not allowed except for branch: \"pu\".'; fi }; f"
