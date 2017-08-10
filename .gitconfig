@@ -29,6 +29,7 @@
   pk = cherry-pick
   pka = cherry-pick --abort
   pkc = cherry-pick --continue
+  cherry-pick-one = "!$SHELL -c 'git cherry-pick $(fcs)'"
   cherry-pick-range = "!$SHELL -c 'git cherry-pick $(fcs)..$(fcs)'"
   m = merge --no-ff
   mff = merge --ff
