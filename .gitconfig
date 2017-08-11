@@ -29,8 +29,9 @@
   pk = cherry-pick
   pka = cherry-pick --abort
   pkc = cherry-pick --continue
-  cherry-pick-one = "!$SHELL -c 'git cherry-pick $(fcs)'"
-  cherry-pick-range = "!$SHELL -c 'git cherry-pick $(fcs)..$(fcs)'"
+  cherry-pick-one = "!$SHELL -c 'git cherry-pick $(fcsa)'"
+  cherry-pick-range = "!$SHELL -c 'git cherry-pick $(fcsa)^..$(fcsa)'"
+  cherry-picking-hash = "!git status | grep -oP \"(?<=commit\\s)[0-9a-f]+\""
   m = merge --no-ff
   mff = merge --ff
   a = add
@@ -53,8 +54,8 @@
   lp = log -p
   tr = log --all --graph --pretty='format:%C(yellow)%h%Creset%C(red)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   d = diff
-  diff-with = "!$SHELL -c 'git diff $(fcs)'"
-  diff-between = "!$SHELL -c 'git diff $(fcs)..$(fcs)'"
+  diff-with = "!$SHELL -c 'git diff $(fcsa)'"
+  diff-between = "!$SHELL -c 'git diff $(fcsa)..$(fcsa)'"
   dp = diff HEAD~1
   dn = diff --name-only
   dd = diff develop
@@ -86,6 +87,7 @@
   cmas = checkout master
   cb = checkout -b
   cp = checkout -p
+  diff3-conflict = checkout --conflict=diff3
   unstage = reset --
   unstage-all = reset HEAD
   us = unstage
@@ -100,6 +102,7 @@
   cancel-merge = reset --merge
   cancel-merge-commit = reset --hard origin
   restore-to-ref = reset --hard
+  reset-to = "!$SHELL -c 'git reset --hard $(fcs)'"
   delete-untraced-list = clean -f -n
   delete-untraced = clean -f -d
   st = stash
@@ -112,4 +115,5 @@
   w = worktree
   enable-rerere = config rerere.enabled true
   current-branch = rev-parse --abbrev-ref HEAD
-  merge-feat = "!f() { if [ $(git current-branch) = 'pu' ]; then git reset --hard master; for b in $(git branch --sort=committerdate | grep 'feat/'); do git merge --no-ff --no-edit $b; done; else echo 'merge-feat is not allowed except for branch: \"pu\".'; fi }; f"
+  merge-feat = "!f() { if [ $(git current-branch) = 'pu' ]; then git reset --hard master; for b in $(git branch --sort=committerdate | grep -oe \"feat/[^ ]\\+\"); do git merge --no-ff --no-edit $b; done; else echo 'merge-feat is not allowed except for branch: \"pu\".'; fi }; f"
+  push-feat = "!git push -f origin $(git branch --sort=committerdate | grep -oe \"feat/[^ ]\\+\")"
