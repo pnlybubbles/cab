@@ -31,6 +31,8 @@ if dein#load_state('~/.vim/dein')
   call dein#add('Shougo/neomru.vim')
   call dein#add('cocopon/vaffle.vim')
   call dein#add('terryma/vim-multiple-cursors')
+  call dein#add('leafgarland/typescript-vim')
+  " call dein#add('mhartington/nvim-typescript')
 
   call dein#end()
   call dein#save_state()
