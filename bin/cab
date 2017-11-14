@@ -13,7 +13,7 @@ show_help () {
 }
 
 case $1 in
-  '' | 'start' )
+  'start' )
     docker run \
       -v /Users/pnlybubbles/cab:/cab \
       -v /var/run/docker.sock:/var/run/docker.sock \
@@ -33,7 +33,14 @@ case $1 in
       docker stop $replica
     fi
     ;;
-  'sh' )
+  '' | 'a' | 'attach' )
+    shift
+    docker exec \
+      -it \
+      cab \
+      env TERM=xterm-256color tmux a $*
+    ;;
+  'new' )
     shift
     if [ ! -z "$*" ]; then
       docker exec \
