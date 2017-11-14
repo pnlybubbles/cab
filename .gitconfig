@@ -26,6 +26,7 @@
   re = rebase
   rea = rebase --abort
   rec = rebase --continue
+  rebase-to = "!$SHELL -c 'git rebase --interactive $(fcs)'"
   pk = cherry-pick
   pka = cherry-pick --abort
   pkc = cherry-pick --continue
@@ -87,9 +88,12 @@
   cmas = checkout master
   cb = checkout -b
   cp = checkout -p
+  checkout-to = "!$SHELL -c 'git checkout $(fcsa)'"
   diff3-conflict = checkout --conflict=diff3
   unstage = reset --
+  unstage-newfile = rm --cached
   unstage-all = reset HEAD
+  unstage-all-init = rm --cached -r .
   us = unstage
   usa = unstage-all
   reset-tree = checkout .
@@ -111,9 +115,10 @@
   stl = stash list
   sta = stash apply
   r = reflog
-  delete-merged-branch = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|develop|master'|xargs git branch -d; };f"
+  delete-merged-branch = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|develop|master'|xargs git branch -d; }; f"
   w = worktree
   enable-rerere = config rerere.enabled true
   current-branch = rev-parse --abbrev-ref HEAD
   merge-feat = "!f() { if [ $(git current-branch) = 'pu' ]; then git reset --hard master; for b in $(git branch --sort=committerdate | grep -oe \"feat/[^ ]\\+\"); do git merge --no-ff --no-edit $b; done; else echo 'merge-feat is not allowed except for branch: \"pu\".'; fi }; f"
   push-feat = "!git push -f origin $(git branch --sort=committerdate | grep -oe \"feat/[^ ]\\+\")"
+  push-gomi = "!f () { hub create pnlybubbles-gomibako/$(basename `pwd`); git push -u origin master; }; f"
