@@ -5,7 +5,8 @@ show_help () {
   echo
   echo 'Commands:'
   echo '\t start             start container'
-  echo '\t sh [ARGUMENTS]    attach to container. if [ARGUMENTS] specified, it will be executed.'
+  echo '\t attach            attach to tmux in container'
+  echo '\t new [ARGUMENTS]   start tmux server. if [ARGUMENTS] specified, it will be executed in container.'
   echo '\t stop              stop containers including started from inside container'
   echo '\t clean             clean unused images'
   echo '\t build [ARGUMENTS] build image. [ARGUMENTS] will be passed to docker'
