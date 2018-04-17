@@ -96,6 +96,11 @@ RUN set -x \
 RUN set -x \
   && apt-get install -y netcat-openbsd
 
+## hub
+RUN set -x \
+  && apt-get install -y rubygems
+  && gem install hub
+
 ## Clean
 RUN rm -rf /cab/* \
   rm -rf /var/lib/apt/lists/*
