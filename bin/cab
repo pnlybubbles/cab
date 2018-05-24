@@ -52,7 +52,7 @@ case $1 in
       docker exec \
         -it \
         cab \
-        zsh -c 'eval `ssh-agent` && ssh-add && source ~/.zshrc-packages && env TERM=xterm-256color tmux'
+        zsh -c 'eval `ssh-agent` && ssh-add ~/.ssh/id_rsa && source ~/.zshrc-packages && env TERM=xterm-256color tmux'
     fi
     ;;
   'clean' )
@@ -66,7 +66,7 @@ case $1 in
     docker build \
       -t cab \
       $* \
-      /Users/pnlybubbles/cab
+      /Users/pnlybubbles/cab/bin
     ;;
   'help' | '--help')
     show_help

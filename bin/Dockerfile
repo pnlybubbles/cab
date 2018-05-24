@@ -98,7 +98,7 @@ RUN set -x \
 
 ## hub
 RUN set -x \
-  && apt-get install -y rubygems
+  && apt-get install -y rubygems \
   && gem install hub
 
 ## Clean

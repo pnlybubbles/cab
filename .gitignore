@@ -1,16 +1,14 @@
 *.DS_Store
-/**/*
+/*
 !/.gitignore
 !/.gitignore_global
 !/bin/
-!/Dockerfile
 !/.gitconfig
-!/docker-entrypoint.sh
 !/.zshrc
 !/.zshrc-packages
 !/.zplug-list
 !/.tmux.conf
-!/.config
+!/.config/nvim
 !/cab.itermcolors
 !/README.md
 
