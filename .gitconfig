@@ -49,6 +49,7 @@
   p = push
   po = push -u origin
   poc = !git push -u origin $(git current-branch)
+  pc = !git push -u $(git remote | fzf) $(git current-branch)
   ph = push heroku
   l = log
   lm = log --author=pnlybubbles
