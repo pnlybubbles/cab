@@ -62,7 +62,7 @@ hi GitGutterChange guibg=None
 hi GitGutterDelete guibg=None
 hi GitGutterChangeDelete guibg=None
 hi Directory guifg=#b2b2b2
-hi EndOfBuffer guifg=#292929
+hi EndOfBuffer guifg=#292929 guibg=#292929
 set fillchars+=vert:\│
 hi VertSplit guibg=None guifg=#4e4e4e
 hi StatusLine guibg=#4e4e4e
