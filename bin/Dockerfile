@@ -106,6 +106,6 @@ RUN rm -rf /cab/* \
   rm -rf /var/lib/apt/lists/*
 
 ## USER
-RUN cat /etc/passwd | sed -e 's/\/root/\/cab/' > /etc/passwd
+#RUN cat /etc/passwd | sed -e 's/\/root/\/cab/' > /etc/passwd
 
 ENTRYPOINT ["docker-entrypoint.sh"]
