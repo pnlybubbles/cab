@@ -38,6 +38,7 @@
   a = add
   aa = add --all
   ap = add -p
+  af = "!$SHELL -c 'git status -su | fzf --ansi --no-sort --reverse --tiebreak=index | sed -e \"s/^...//\" | xargs -I % $SHELL -c \"git add %\"'"
   cm = commit
   wip = commit -m 'wip'
   cm-empty = commit --allow-empty --allow-empty-message -m ''
