@@ -101,6 +101,7 @@
   reset-index = reset HEAD
   reset-all = reset --hard HEAD
   cancel-commit = reset --soft HEAD^
+  cancel-commit-init = update-ref -d HEAD
   cancel-index = reset HEAD^
   cancel-all = reset --hard HEAD^
   cancel-rebase = reset --hard ORIG_HEAD
