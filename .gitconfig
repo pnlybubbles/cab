@@ -54,6 +54,7 @@
   l = log
   lm = log --author=pnlybubbles
   lp = log -p
+  lf = log --pretty=fuller
   tr = log --all --graph --pretty='format:%C(yellow)%h%Creset%C(red)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   d = diff
   diff-with = "!$SHELL -c 'git diff $(fcsa)'"
