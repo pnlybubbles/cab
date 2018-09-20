@@ -35,10 +35,9 @@
   cherry-picking-hash = "!git status | grep -oP \"(?<=commit\\s)[0-9a-f]+\""
   m = merge --no-ff
   mff = merge --ff
-  a = add
   aa = add --all
   ap = add -p
-  af = "!$SHELL -c 'git status -su | fzf --ansi --no-sort --reverse --tiebreak=index | sed -e \"s/^...//\" | xargs -I % $SHELL -c \"git add %\"'"
+  a = "!$SHELL -c 'git status -su | fzf-tmux --ansi --no-sort --tiebreak=index -d 10 | sed -e \"s/^...//\" | xargs -I % $SHELL -c \"git add %\"'"
   cm = commit
   wip = commit -m 'wip'
   cm-empty = commit --allow-empty --allow-empty-message -m ''
@@ -84,7 +83,7 @@
   bm = branch -m
   bd = branch -d
   bf = branch -f
-  c = checkout
+  c = "!$SHELL -c 'git branch -avv | fzf-tmux --ansi --no-sort --tiebreak=index -d 10 | sed -e \"s/..\\(remotes\\/origin\\/\\)\\?\\([^ ]\\+\\).*/\\2/\" | sort | uniq | xargs -I % $SHELL -c \"git checkout %\"'"
   cc = checkout -
   cd = checkout develop
   cs = checkout stash@{0}
