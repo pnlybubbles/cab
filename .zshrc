@@ -119,6 +119,17 @@ add-zsh-hook precmd _vcs_precmd
 PROMPT='%F{197}❯ %f'
 RPROMPT=' %F{239}${git_status} ${LEFT_LINE_TRIANGLE} %c%f'
 
+## Rename tmux tab
+
+rename_tmux_window() {
+  if [ $TERM = "screen-256color" ]; then
+    local current_path=`pwd | sed -e s/\ /_/g`
+    local current_dir=`basename $current_path`
+    tmux rename-window $current_dir
+  fi
+}
+add-zsh-hook precmd rename_tmux_window
+
 # Misc
 
 eval "$(direnv hook zsh)"
