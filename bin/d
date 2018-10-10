@@ -81,6 +81,9 @@ env_opt() {
   do
     ret=$ret' -p '`paired_port $p`
   done
+  if [ ! -z "$DOCKER_RUN_NETWORK"  ]; then
+    ret=$ret' --network '$DOCKER_RUN_NETWORK
+  fi
   echo $ret
 }
 
