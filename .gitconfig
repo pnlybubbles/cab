@@ -84,6 +84,7 @@
   bd = branch -d
   bf = branch -f
   c = "!$SHELL -c 'git branch -avv | fzf-tmux --ansi --no-sort --tiebreak=index -d 10 | sed -e \"s/..\\(remotes\\/origin\\/\\)\\?\\([^ ]\\+\\).*/\\2/\" | sort | uniq | xargs -I % $SHELL -c \"git checkout %\"'"
+  cf = "!$SHELL -c 'git status -su | fzf-tmux --ansi --no-sort --tiebreak=index -d 10 | sed -e \"s/^...//\" | xargs -I % $SHELL -c \"git checkout %\"'"
   cc = checkout -
   cd = checkout develop
   cs = checkout stash@{0}
@@ -99,6 +100,7 @@
   us = unstage
   usa = unstage-all
   reset-tree = checkout .
+  dis = checkout .
   reset-index = reset HEAD
   reset-all = reset --hard HEAD
   cancel-commit = reset --soft HEAD^
