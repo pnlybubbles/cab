@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# This script is forwarding node commands into docker container.
+# Invoked from run-node used by husky githooks.
+
+d --no-tty node $*

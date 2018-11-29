@@ -18,10 +18,17 @@ start () {
 }
 
 execute () {
-  docker exec \
-    -it \
-    $current_id \
-    sh -c "cd /main && $*"
+  if test $tty; then
+    docker exec \
+      -it \
+      $current_id \
+      sh -c "cd /main && $*"
+  else
+    docker exec \
+      -i \
+      $current_id \
+      sh -c "cd /main && $*"
+  fi
 }
 
 status() {
@@ -113,6 +120,7 @@ fi
 image=''
 port=''
 opt=''
+tty=true
 
 if [ ! -z "$DOCKER_RUN_IMAGE"  ]; then
   image=$DOCKER_RUN_IMAGE
@@ -145,6 +153,10 @@ do
       ;;
     '-h' | '--help' )
       shift; show_help;
+      return 0
+      ;;
+    '--no-tty' )
+      shift; tty=false
       return 0
       ;;
     * )
