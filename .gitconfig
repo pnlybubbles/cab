@@ -57,6 +57,7 @@
   lf = log --pretty=fuller
   tr = log --all --graph --pretty='format:%C(yellow)%h%Creset%C(red)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   d = diff
+  df = "!$SHELL -c 'git status -su | fzf-tmux --ansi --no-sort --tiebreak=index -d 10 | sed -e \"s/^...//\" | xargs -I % $SHELL -c \"git diff @ %\"'"
   diff-with = "!$SHELL -c 'git diff $(fcsa)'"
   diff-between = "!$SHELL -c 'git diff $(fcsa)..$(fcsa)'"
   dp = diff HEAD~1
